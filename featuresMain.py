@@ -3,10 +3,7 @@ import wikipedia
 import pywhatkit
 import pyttsx3
 import webbrowser
-from playsound import playsound
-from random import choice
-
-from wikipedia.wikipedia import random
+from playsound import playsound 
 
 # * Initializing the voice engine
 engine = pyttsx3.init('sapi5')
@@ -25,13 +22,13 @@ exitCommands = {
     "buy jarvis": "Bye Sir! You can call me anytime",
     "keep quiet": "Sorry Sir",
     "goodbye": "Bye Sir! You can call me anytime",
-    "goodbye jarvis": "Bye Sir! You can call me anytime",
+    "goodbye jarvis": "Bye Sir! Have a great day!",
     "good bye": "Bye Sir! You can call me anytime",
     "good bye jarvis": "Bye Sir! You can call me anytime",
     "sleep": "Ok sir! You can call me anytime",
     "clip": "Ok sir! You can call me anytime",
     "shut up": "Sorry sir, I am leaving now",
-    "leave me alone": "Ok sir, I am leaving now"
+    "leave me alone": "Ok sir, Hve a good day"
 }
 
 def speak(text):
@@ -123,3 +120,7 @@ def alarmRing(timme):
         elif currTime > alarmTime:
             speak("Check your Input sir!")
             break
+
+def search_on_wikipedia(query):
+    results = wikipedia.summary(query, sentences=2)
+    return results
