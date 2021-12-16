@@ -1,13 +1,14 @@
-from sys import platform
-from requests import get
 import os
 import random
-import webbrowser
 import pyttsx3
 import datetime
-import speech_recognition as sr
+import speedtest
+import webbrowser
+from requests import get
+from sys import platform
 from featuresMain import *
 from decouple import config
+import speech_recognition as sr
 
 # * Initializing the voice engine
 engine = pyttsx3.init('sapi5')
@@ -72,12 +73,14 @@ def takeInput():
         print(query)
     return query.lower()
 
-# * Takes the userInput from the microphone in nepali and tries to resolve using Google.
+# *Reads the lines from listSongs.txt and return a random url of song.
+
 
 def randomLines():
     lines = open('DataCenter\\listSongs.txt').read().splitlines()
-    final =  random.choice(lines)
+    final = random.choice(lines)
     return final
+
 
 if __name__ == '__main__':
     wisher()
@@ -86,12 +89,12 @@ if __name__ == '__main__':
         try:
             outputTakeIn = takeInput()
 
-            if 'google search' in outputTakeIn:
+            if 'search google' in outputTakeIn:
                 speak("What do you wanna search?")
                 query = takeInput().lower()
                 result = googleSearch(query)
 
-            elif 'youtube search' in outputTakeIn:
+            elif 'search youtube' in outputTakeIn:
                 speak("What do you wanna search?")
                 query = takeInput().lower()
                 result = youtubeSearch(query)
@@ -118,12 +121,12 @@ if __name__ == '__main__':
                 except ConnectionError:
                     speak("It seems like you are not connected to the Internet.")
 
-            elif 'owner'  in outputTakeIn or 'who is your owner' in outputTakeIn or 'who created you' in outputTakeIn:
+            elif 'owner' in outputTakeIn or 'who is your owner' in outputTakeIn or 'who created you' in outputTakeIn:
                 owner()
 
-            elif 'change voice' in outputTakeIn:
+            elif 'change voice' in outputTakeIn or 'change your voice' in outputTakeIn:
                 if 'female' in outputTakeIn:
-                    engine.setProperty('voice', voices[1].id)
+                    engine.setProperty('voice', voices[2].id)
                 else:
                     engine.setProperty('voice', voices[0].id)
                 speak("Changed my voice, How do you like it?")
@@ -146,9 +149,35 @@ if __name__ == '__main__':
                 speak("For your convenience I am printing it on the screen.")
                 print(result)
 
-            elif 'ip' in outputTakeIn  or 'ip address' in outputTakeIn:
-                ip_addr = get('https://api64.ipify.org/')
-                speak(f"Your IP address is" + {ip_addr}.text)
+            elif 'ip' in outputTakeIn or 'ip address' in outputTakeIn:
+                ip_addr = get('https://api64.ipify.org/').text
+                speak(f"Your IP address is {ip_addr}")
+
+            elif 'speedtest' in outputTakeIn or 'speed test' in outputTakeIn:
+                speak("Checking the Internet speed. Wait a moment Sir!")
+                try:
+                    st = speedtest.Speedtest()
+                    # down = st.download()
+                    # uploadd = st.upload()
+                    # roundedspeed = round(down)
+                    # finaldown = roundedspeed / 1e+6
+                    # roundedup = round(uploadd)
+                    # finalup = roundedup / 1e+6
+                    # speak(f"Your download speed is: {finaldown} Mbps")
+                    # speak(f"Your upload speed is: {finalup} Mbps")
+                    # speak("Checking the Download Speed")
+                    downres = st.download()/1025/1024
+                    # speak("Checking the upload speed")
+                    upres = st.upload()/1024/1024
+                    # speak("Testing Ping")
+                    pingres = st.results.ping
+                    speak(f"Your Download speed is: {downres:.2f} megabitpersecond")
+                    speak(f"Your Upload speed is: {upres:.2f} megabitpersecond")
+                    speak(f"Your Ping is: {pingres} ms")
+
+                except Exception as e:
+                    speak(e)
+
 
         except Exception as e:
             speak("An error Occured!")

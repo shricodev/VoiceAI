@@ -3,7 +3,9 @@ import wikipedia
 import pywhatkit
 import pyttsx3
 import webbrowser
-from playsound import playsound 
+from playsound import playsound
+# import speedtest_cli
+import os
 
 # * Initializing the voice engine
 engine = pyttsx3.init('sapi5')
@@ -31,6 +33,7 @@ exitCommands = {
     "leave me alone": "Ok sir, Hve a good day"
 }
 
+
 def speak(text):
     print('')
     print(f"{text}")
@@ -39,8 +42,13 @@ def speak(text):
     engine.runAndWait()
 
 # * Searches the user query on google and wikipedia
+
+
 def owner():
     speak("Piyush Acharya @r3alix01 from Kathmandu, created me as a test project.")
+
+# *takes the term and filters the non-sense worrds and searches the required query
+
 
 def googleSearch(term):
 
@@ -67,11 +75,15 @@ def googleSearch(term):
     except Exception:
         pywhatkit.search(mainQuery)
 
+# * Searhes the youtube about the term
+
 
 def youtubeSearch(term):
     speak("Opening YouTube..")
     webbrowser.open(f'https://youtube.com/results/?search_query={term}')
     speak("This is what I found for your search")
+
+# * Gets the user input and writes into a file for processing and clears it on the go.
 
 
 def alarmGet(term):
@@ -88,6 +100,8 @@ def alarmGet(term):
     deleteFileData.close()
 
     return mainData.lower()
+
+# * Rings the alarm based on the userInput
 
 
 def alarmRing(timme):
@@ -121,6 +135,10 @@ def alarmRing(timme):
             speak("Check your Input sir!")
             break
 
+
+# * Searches the userquery on the wikipedia
 def search_on_wikipedia(query):
     results = wikipedia.summary(query, sentences=2)
     return results
+
+    
