@@ -5,6 +5,7 @@ import datetime
 import speedtest
 import webbrowser
 from requests import get
+from time import sleep
 from sys import platform
 from featuresMain import *
 from decouple import config
@@ -89,40 +90,48 @@ if __name__ == '__main__':
         try:
             outputTakeIn = takeInput()
 
-            if 'search google' in outputTakeIn:
+            if 'search google' in outputTakeIn or 'search in google' in outputTakeIn:
                 speak("What do you wanna search?")
                 query = takeInput().lower()
                 result = googleSearch(query)
+                sleep(2)
 
-            elif 'search youtube' in outputTakeIn:
+            elif 'search youtube' in outputTakeIn or 'search in youtube' in outputTakeIn:
                 speak("What do you wanna search?")
                 query = takeInput().lower()
                 result = youtubeSearch(query)
+                sleep(2)
 
             elif outputTakeIn in exitCommands.keys():
-                query = takeInput()
-                speak(exitCommands[query])
+                # query = takeInput()
+                speak(exitCommands[outputTakeIn])
                 exit()
+
+            elif outputTakeIn in greet.keys():
+                speak(greet[outputTakeIn])
 
             elif 'time' in outputTakeIn:
                 speak(
                     f"The current time is: {datetime.datetime.now().strftime('%H:%M%p')}")
+                sleep(2)
 
             elif 'set alarm' in outputTakeIn:
                 speak("Give me time in TwentyFour Hour Format")
                 a = alarmGet(takeInput())
                 alarmRing(a)
 
-            elif 'song' in outputTakeIn:
+            elif 'song' in outputTakeIn or 'music' in outputTakeIn:
                 try:
                     a = randomLines()
                     webbrowser.open(a)
 
                 except ConnectionError:
                     speak("It seems like you are not connected to the Internet.")
+                    sleep(2)
 
             elif 'owner' in outputTakeIn or 'who is your owner' in outputTakeIn or 'who created you' in outputTakeIn:
                 owner()
+                sleep(2)
 
             elif 'change voice' in outputTakeIn or 'change your voice' in outputTakeIn:
                 if 'female' in outputTakeIn:
@@ -130,6 +139,7 @@ if __name__ == '__main__':
                 else:
                     engine.setProperty('voice', voices[0].id)
                 speak("Changed my voice, How do you like it?")
+                sleep(2)
 
             elif 'shutdown' in outputTakeIn:
                 if platform == 'win32':
@@ -139,7 +149,9 @@ if __name__ == '__main__':
                     os.system('poweroff')
 
             elif 'open cmd' in outputTakeIn or 'open command prompt' in outputTakeIn:
+                speak("Opening Command Prompt")
                 os.system('start cmd')
+                sleep(2)
 
             elif 'wikipedia' in outputTakeIn:
                 speak("What do you wanna search?")
@@ -148,10 +160,12 @@ if __name__ == '__main__':
                 speak(f'According to wikipedia, {result}')
                 speak("For your convenience I am printing it on the screen.")
                 print(result)
+                sleep(2)
 
             elif 'ip' in outputTakeIn or 'ip address' in outputTakeIn:
                 ip_addr = get('https://api64.ipify.org/').text
                 speak(f"Your IP address is {ip_addr}")
+                sleep(2)
 
             elif 'speedtest' in outputTakeIn or 'speed test' in outputTakeIn:
                 speak("Checking the Internet speed. Wait a moment Sir!")
@@ -171,13 +185,19 @@ if __name__ == '__main__':
                     upres = st.upload()/1024/1024
                     # speak("Testing Ping")
                     pingres = st.results.ping
-                    speak(f"Your Download speed is: {downres:.2f} megabitpersecond")
-                    speak(f"Your Upload speed is: {upres:.2f} megabitpersecond")
+                    speak(
+                        f"Your Download speed is: {downres:.2f} megabitpersecond")
+                    speak(
+                        f"Your Upload speed is: {upres:.2f} megabitpersecond")
                     speak(f"Your Ping is: {pingres} ms")
+                    sleep(2)
 
                 except Exception as e:
                     speak(e)
+                    sleep(2)
 
+            elif 'my location' in outputTakeIn or 'location' in outputTakeIn:
+                loc()
 
         except Exception as e:
             speak("An error Occured!")

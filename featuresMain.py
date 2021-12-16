@@ -3,9 +3,9 @@ import wikipedia
 import pywhatkit
 import pyttsx3
 import webbrowser
+from requests import get
 from playsound import playsound
-# import speedtest_cli
-import os
+
 
 # * Initializing the voice engine
 engine = pyttsx3.init('sapi5')
@@ -15,12 +15,27 @@ voices = engine.getProperty("voices")
 engine.setProperty("voice", voices[1].id)
 engine.setProperty("rate", 170)
 
-exitCommands = {
-    "bye jarvis": "Bye Sir! You can call me anytime",
+
+greet = {
+    "hello": "Hi Sir, How may I help you?",
+    "hai": "Hi Sir, How may I help you?",
     "hi jarvis": "Hello Sir! What are you upto?",
     "hello jarvis": "Hi Sir! What are you doing?",
-    "hello": "Hi Sir! What are you doing?",
+    "hello": "Hi Sir, What are you doing?",
     "hi": "Hi Sir! What are you doing?",
+    "hai": "Hi Sir, How may I help you?",
+    "hi jarvis ": "Hello Sir! What are you upto?",
+    "hello jarvis ": "Hi Sir! What are you doing?",
+    "hello ": "Hi Sir, What are you doing?",
+    "hi ": "Hi Sir! What are you doing?",
+}
+
+
+exitCommands = {
+    "bye jarvis": "Bye Sir! You can call me anytime",
+    "bye": "Bye Sir! You can call me anytime",
+    "exit": "Bye Sir, Have a great day!",
+    "exit jarvis": "Bye Sir! Have a great day!",
     "buy jarvis": "Bye Sir! You can call me anytime",
     "keep quiet": "Sorry Sir",
     "goodbye": "Bye Sir! You can call me anytime",
@@ -30,7 +45,21 @@ exitCommands = {
     "sleep": "Ok sir! You can call me anytime",
     "clip": "Ok sir! You can call me anytime",
     "shut up": "Sorry sir, I am leaving now",
-    "leave me alone": "Ok sir, Hve a good day"
+    "leave me alone": "Ok sir, Have a good day",
+    "bye jarvis ": "Bye Sir! You can call me anytime",
+    "bye ": "Bye Sir! You can call me anytime",
+    "exit ": "Bye Sir, Have a great day!",
+    "exit jarvis ": "Bye Sir! Have a great day!",
+    "buy jarvis ": "Bye Sir! You can call me anytime",
+    "keep quiet ": "Sorry Sir",
+    "goodbye ": "Bye Sir! You can call me anytime",
+    "goodbye jarvis ": "Bye Sir! Have a great day!",
+    "good bye ": "Bye Sir! You can call me anytime",
+    "good bye jarvis ": "Bye Sir! You can call me anytime",
+    "sleep ": "Ok sir! You can call me anytime",
+    "clip ": "Ok sir! You can call me anytime",
+    "shut up ": "Sorry sir, I am leaving now",
+    "leave me alone ": "Ok sir, Have a good day",
 }
 
 
@@ -141,4 +170,12 @@ def search_on_wikipedia(query):
     results = wikipedia.summary(query, sentences=2)
     return results
 
-    
+
+def loc():
+    ip_add = get("http://api.ipify.org").text
+    main_url = 'https://get.geojs.io/v1/ip/geo/' + ip_add + '.json'
+    geo_data = get(main_url)
+    geo_main = geo_data.json()
+    country = geo_main['country']
+    city = geo_main['city']
+    speak(f"Your current location is {city}, {country}")
