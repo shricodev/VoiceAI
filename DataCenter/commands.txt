@@ -39,3 +39,33 @@
 [15:57:24PM] User said: 15 and 25
 [15:58:01PM] User said: set an alarm set alarm
 [15:58:13PM] User said: 16 and 26
+[16:03:58PM] User said: do me a favour Zombies
+[17:09:03PM] User said: my location
+[17:09:14PM] User said: speed test
+[17:10:06PM] User said: who is your owner
+[17:10:20PM] User said: exit
+[17:10:47PM] User said: shut up
+[17:10:54PM] User said: goodbye Jarvis
+[17:12:25PM] User said: hello
+[17:12:29PM] User said: hello
+[17:17:37PM] User said: service
+[17:17:43PM] User said: hai
+[17:17:49PM] User said: hello
+[17:18:10PM] User said: 1000
+[17:18:15PM] User said: 1020
+[17:18:21PM] User said: exit
+[17:19:28PM] User said: what is my current location address
+[17:19:54PM] User said: hello
+[17:20:03PM] User said: what is my IP address
+[17:20:22PM] User said: search in Wikipedia
+[17:20:41PM] User said: who is Salman Khan
+[17:21:39PM] User said: open command prompt
+[17:22:20PM] User said: play me a song Jarvis
+[17:22:35PM] User said: who is your owner
+[17:23:24PM] User said: bye
+[17:23:33PM] User said: leave me alone
+[17:27:02PM] User said: what is my location
+[17:27:35PM] User said: kya hai
+[17:28:06PM] User said: what is the time now in USA
+[17:28:25PM] User said: bye
+[17:30:28PM] User said: bye
